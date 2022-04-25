@@ -1,30 +1,20 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
-
-    onMount(() => {
-        console.log("Mounted");
-    });
-
-    onDestroy(() => {
-        console.log("Destroyed");
-    });
-
+    let selected_algorithm = "";
 </script>
 
 <div class="modal-container">
     <div class="config-modal">
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <svg on:click xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M26.5525,21.6075l-4.945,4.945l59.4475,59.4475l-59.4475,59.4475l4.945,4.945l59.4475,-59.4475l59.4475,59.4475l4.945,-4.945l-59.4475,-59.4475l59.4475,-59.4475l-4.945,-4.945l-59.4475,59.4475z"></path></g></g></svg>
+        <svg on:click xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M26.5525,21.6075l-4.945,4.945l59.4475,59.4475l-59.4475,59.4475l4.945,4.945l59.4475,-59.4475l59.4475,59.4475l4.945,-4.945l-59.4475,-59.4475l59.4475,-59.4475l-4.945,-4.945l-59.4475,59.4475z"></path></g></g></svg>
         <h3>Scheduler Configuration</h3>
         <div class="algorithms">
             <h4>Algorithms</h4>
             <div class="algorithm-types">
-                <h5>FCFS</h5>
-                <h5>SSTF</h5>
-                <h5>SCAN</h5>
-                <h5>C-SCAN</h5>
-                <h5>LOOK</h5>
-                <h5>C-LOOK</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "FCFS"}" on:click="{() => { selected_algorithm === "FCFS" ? selected_algorithm = "" : selected_algorithm = "FCFS"; }}">FCFS</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "SSTF"}" on:click="{() => { selected_algorithm === "SSTF" ? selected_algorithm = "" : selected_algorithm = "SSTF"; }}">SSTF</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "SCAN"}" on:click="{() => { selected_algorithm === "SCAN" ? selected_algorithm = "" : selected_algorithm = "SCAN"; }}">SCAN</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "C-SCAN"}" on:click="{() => { selected_algorithm === "C-SCAN" ? selected_algorithm = "" : selected_algorithm = "C-SCAN"; }}">C-SCAN</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "LOOK"}" on:click="{() => { selected_algorithm === "LOOK" ? selected_algorithm = "" : selected_algorithm = "LOOK"; }}">LOOK</h5>
+                <h5 class:highlighted_algorithm="{selected_algorithm === "C-LOOK"}" on:click="{() => { selected_algorithm === "C-LOOK" ? selected_algorithm = "" : selected_algorithm = "C-LOOK"; }}">C-LOOK</h5>
             </div>
         </div>
         <div class="head-direction">
@@ -95,6 +85,12 @@
         margin-bottom: 10px;
     }
 
+    .highlighted_algorithm {
+        background-color: white;
+        color: black;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1.0) 0.25s;
+    }
+
     .algorithm-types {
         display: flex;
         flex-wrap: wrap;
@@ -147,7 +143,7 @@
         border: none;
         outline: none;
         color: white;
-        padding: 5px 8px;
+        padding: 3px 8px;
         border: 1px solid rgba(255, 255, 255, 0.089);
     }
 
