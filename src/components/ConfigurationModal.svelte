@@ -1,5 +1,21 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
     let selected_algorithm = "";
+    let head_direction = "";
+    let cylinders = "";
+    let disk_requests = "";
+
+    function sendConfiguration() {
+        dispatch("config", {
+            selected_algorithm,
+            head_direction,
+            cylinders,
+            disk_requests
+        });
+    }
 </script>
 
 <div class="modal-container">
@@ -9,24 +25,24 @@
         <div class="algorithms">
             <h4>Algorithms</h4>
             <div class="algorithm-types">
-                <h5 class:highlighted_algorithm="{selected_algorithm === "FCFS"}" on:click="{() => { selected_algorithm === "FCFS" ? selected_algorithm = "" : selected_algorithm = "FCFS"; }}">FCFS</h5>
-                <h5 class:highlighted_algorithm="{selected_algorithm === "SSTF"}" on:click="{() => { selected_algorithm === "SSTF" ? selected_algorithm = "" : selected_algorithm = "SSTF"; }}">SSTF</h5>
-                <h5 class:highlighted_algorithm="{selected_algorithm === "SCAN"}" on:click="{() => { selected_algorithm === "SCAN" ? selected_algorithm = "" : selected_algorithm = "SCAN"; }}">SCAN</h5>
-                <h5 class:highlighted_algorithm="{selected_algorithm === "C-SCAN"}" on:click="{() => { selected_algorithm === "C-SCAN" ? selected_algorithm = "" : selected_algorithm = "C-SCAN"; }}">C-SCAN</h5>
-                <h5 class:highlighted_algorithm="{selected_algorithm === "LOOK"}" on:click="{() => { selected_algorithm === "LOOK" ? selected_algorithm = "" : selected_algorithm = "LOOK"; }}">LOOK</h5>
-                <h5 class:highlighted_algorithm="{selected_algorithm === "C-LOOK"}" on:click="{() => { selected_algorithm === "C-LOOK" ? selected_algorithm = "" : selected_algorithm = "C-LOOK"; }}">C-LOOK</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "FCFS"}" on:click="{() => { selected_algorithm === "FCFS" ? selected_algorithm = "" : selected_algorithm = "FCFS"; }}">FCFS</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "SSTF"}" on:click="{() => { selected_algorithm === "SSTF" ? selected_algorithm = "" : selected_algorithm = "SSTF"; }}">SSTF</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "SCAN"}" on:click="{() => { selected_algorithm === "SCAN" ? selected_algorithm = "" : selected_algorithm = "SCAN"; }}">SCAN</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "C-SCAN"}" on:click="{() => { selected_algorithm === "C-SCAN" ? selected_algorithm = "" : selected_algorithm = "C-SCAN"; }}">C-SCAN</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "LOOK"}" on:click="{() => { selected_algorithm === "LOOK" ? selected_algorithm = "" : selected_algorithm = "LOOK"; }}">LOOK</h5>
+                <h5 class:highlighted_button="{selected_algorithm === "C-LOOK"}" on:click="{() => { selected_algorithm === "C-LOOK" ? selected_algorithm = "" : selected_algorithm = "C-LOOK"; }}">C-LOOK</h5>
             </div>
         </div>
         <div class="head-direction">
             <h4>Head Direction</h4>
             <div class="head-direction-options">
-                <h5>Left</h5>
-                <h5>Right</h5>
+                <h5 class:highlighted_button="{head_direction === "left"}" on:click="{() => { head_direction === "left" ? head_direction = "" : head_direction = "left" }}">Left</h5>
+                <h5 class:highlighted_button="{head_direction === "right"}" on:click="{() => { head_direction === "right" ? head_direction = "" : head_direction = "right" }}">Right</h5>
             </div>
         </div>
-        <input class="cylinders-input" type="text" placeholder="Number of Cylinders">
-        <input class="requests-input" type="text" placeholder="Disk Requests">
-        <button>Confirm Config</button>
+        <input bind:value={cylinders} class="cylinders-input" type="text" placeholder="Number of Cylinders">
+        <input bind:value={disk_requests} class="requests-input" type="text" placeholder="Disk Requests">
+        <button on:click="{sendConfiguration}">Confirm Config</button>
     </div>
 </div>
 
@@ -85,7 +101,7 @@
         margin-bottom: 10px;
     }
 
-    .highlighted_algorithm {
+    .highlighted_button {
         background-color: white;
         color: black;
         transition: cubic-bezier(0.075, 0.82, 0.165, 1.0) 0.25s;

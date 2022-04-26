@@ -12,11 +12,17 @@
 	function closeModal() {
 		modalIsOpen = false;		
 	}
+
+	function handleConfig(event) {
+		console.log(event.detail);
+		modalIsOpen = false;
+	}
+
 </script>
 
 <main>
 	{#if modalIsOpen}
-		<ConfigurationModal on:click={modalIsOpen ? closeModal : openModal}/>
+		<ConfigurationModal on:config={handleConfig} on:click={modalIsOpen ? closeModal : openModal}/>
 	{/if}
 	<Title/>
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
