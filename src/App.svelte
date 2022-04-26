@@ -2,8 +2,11 @@
 	import Title from "./components/Title.svelte";
 	import ConfigButton from "./components/ConfigButton.svelte";
 	import ConfigurationModal from "./components/ConfigurationModal.svelte";
-
+	import Grid from "./components/Grid.svelte";
+	
 	let modalIsOpen = false;
+	let width = (window.innerWidth / 2) * 1.25;
+    let height = (window.innerHeight / 2) * 1.25; 
 
 	function openModal() {
 		modalIsOpen = true;		
@@ -14,7 +17,7 @@
 	}
 
 	function handleConfig(event) {
-		console.log(event.detail);
+		// console.log(event.detail);
 		modalIsOpen = false;
 	}
 
@@ -26,6 +29,7 @@
 	{/if}
 	<Title/>
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
+	<Grid  width={width} height={height}/>
 </main>
 
 <style>
@@ -33,5 +37,8 @@
 		height: 100vh;
 		width: 100%;
 		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

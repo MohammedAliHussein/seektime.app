@@ -8,6 +8,7 @@
         background: none;
         color: white;
         border: 1px solid white;
+        width: fit-content;
         padding: 3px 7px;
         margin-top: 30px;
         font-weight: 100;
