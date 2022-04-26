@@ -1,11 +1,9 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-    import { onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
     import { circInOut } from 'svelte/easing';
 
     const dispatch = createEventDispatcher();
-    let outro_style = "";
 
     let selected_algorithm = "";
     let head_direction = "";
@@ -20,15 +18,6 @@
             disk_requests
         });
     }
-
-    // onDestroy(() => {
-    //     outro_style = {
-    //         "pointer-events": "none",
-    //         "animation": "fadeOut 0.2s ease-in-out"
-    //     }
-    //     console.log("destroyed");
-    //     setTimeout(() => { }, 300);
-    // });
 
 </script>
 
