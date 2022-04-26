@@ -1,7 +1,11 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+    import { onDestroy } from 'svelte';
+    import { fade } from 'svelte/transition';
+    import { circInOut } from 'svelte/easing';
 
     const dispatch = createEventDispatcher();
+    let outro_style = "";
 
     let selected_algorithm = "";
     let head_direction = "";
@@ -16,9 +20,19 @@
             disk_requests
         });
     }
+
+    // onDestroy(() => {
+    //     outro_style = {
+    //         "pointer-events": "none",
+    //         "animation": "fadeOut 0.2s ease-in-out"
+    //     }
+    //     console.log("destroyed");
+    //     setTimeout(() => { }, 300);
+    // });
+
 </script>
 
-<div class="modal-container">
+<div class="modal-container" out:fade={{easing: circInOut, duration: 200}}>
     <div class="config-modal">
         <svg on:click xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 172 172" style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M26.5525,21.6075l-4.945,4.945l59.4475,59.4475l-59.4475,59.4475l4.945,4.945l59.4475,-59.4475l59.4475,59.4475l4.945,-4.945l-59.4475,-59.4475l59.4475,-59.4475l-4.945,-4.945l-59.4475,59.4475z"></path></g></g></svg>
         <h3>Scheduler Configuration</h3>
@@ -187,6 +201,15 @@
         }
         100% {
             opacity: 100%;
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 100%;
+        }
+        100% {
+            opacity: 0%;
         }
     }
 </style>
