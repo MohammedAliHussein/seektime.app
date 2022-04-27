@@ -19,7 +19,7 @@ export class Grid {
 
         for(let x = 0; x < this.horizontal_divisions; x++)
         {
-            const v = 1.4 / (this.horizontal_divisions - 1); //translate the row down by 2 units so numbers don't get cut off
+            const v = 1.4 / (this.horizontal_divisions - 1); 
             const u = x / (this.horizontal_divisions + 2); 
 
             let px = u * this.canvas.width;

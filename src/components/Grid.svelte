@@ -1,6 +1,8 @@
 <script>
     import { afterUpdate, onMount } from "svelte";
     import { Grid } from "./Grid.js";
+    import { fade } from 'svelte/transition';
+    import { circInOut } from 'svelte/easing';
 
     export let width;
     export let height; 
@@ -15,6 +17,7 @@
     let canvas;
     let context;
     let grid = new Grid(canvas, context); 
+    let requires_redraw = false;
 
     function handleResize() {
         width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
@@ -33,15 +36,13 @@
 
 </script>
 
-<canvas width={width} height={height}/>
+<canvas in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width} height={height}/>
 
 <svelte:window on:resize={handleResize} />
 
 <style>
     canvas {
         margin-top: 40px;
-        border-left: 1px solid rgba(255, 255, 255, 0.066);
-        border-right: 1px solid rgba(255, 255, 255, 0.066);
-        overflow: visible;
+        background: none;
     }
 </style>

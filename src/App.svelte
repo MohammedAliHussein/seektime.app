@@ -3,7 +3,8 @@
 	import ConfigButton from "./components/ConfigButton.svelte";
 	import ConfigurationModal from "./components/ConfigurationModal.svelte";
 	import Grid from "./components/Grid.svelte";
-	
+	import LowScreenSize from "./components/LowScreenSize.svelte";
+
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
     let height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
@@ -28,6 +29,11 @@
 		modalIsOpen = false;
 	}
 
+	function handleResize() {
+        width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
+        height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+	}
+
 </script>
 
 <main>
@@ -36,8 +42,14 @@
 	{/if}
 	<Title/>
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
-	<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
+	{#if width >= 825}
+		<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
+	{:else}
+		<LowScreenSize />	
+	{/if}
 </main>
+
+<svelte:window on:resize={handleResize} />
 
 <style>
 	main {
