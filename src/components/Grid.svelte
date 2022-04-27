@@ -1,28 +1,38 @@
 <script>
-    import { onMount } from "svelte";
+    import { afterUpdate, onMount } from "svelte";
+    import { Grid } from "./Grid.js";
 
     export let width;
     export let height; 
-    let pixel_ratio;
+
+	export let scheduling_data = {
+		selected_algorithm: "",
+		head_direction: null,
+		cylinders: 200,
+		disk_requests: []
+	};
+
     let canvas;
     let context;
+    let grid = new Grid(canvas, context); 
 
     function handleResize() {
-        width = (window.innerWidth / 2) * 1.25;
-        height = (window.innerHeight / 2) * 1.25; 
+        width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
+        height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
     }
 
     onMount(() => {
-        pixel_ratio = window.devicePixelRatio;
         canvas = document.querySelector("canvas");
         context = canvas.getContext("2d");
-        // context.fillRect(0, 0, canvas.width, canvas.height);
+        grid = new Grid(canvas, context);
     });
 
+    afterUpdate(() => {
+        grid.drawCanvas(scheduling_data);
+    });
 
 </script>
 
-<!-- <canvas width="{width * pixel_ratio}" height="{height * pixel_ratio}"><h1>hello</h1></canvas> -->
 <canvas width={width} height={height}/>
 
 <svelte:window on:resize={handleResize} />
@@ -33,5 +43,4 @@
         border-left: 1px solid rgba(255, 255, 255, 0.066);
         border-right: 1px solid rgba(255, 255, 255, 0.066);
     }
-
 </style>

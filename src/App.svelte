@@ -5,8 +5,14 @@
 	import Grid from "./components/Grid.svelte";
 	
 	let modalIsOpen = false;
-	let width = (window.innerWidth / 2) * 1.25;
-    let height = (window.innerHeight / 2) * 1.25; 
+	let width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
+    let height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+	let scheduling_data = {
+		selected_algorithm: "",
+		head_direction: null,
+		cylinders: 200,
+		disk_requests: []
+	};
 
 	function openModal() {
 		modalIsOpen = true;		
@@ -17,7 +23,8 @@
 	}
 
 	function handleConfig(event) {
-		// console.log(event.detail);
+		scheduling_data = event.detail;
+		console.log(scheduling_data);
 		modalIsOpen = false;
 	}
 
@@ -29,7 +36,7 @@
 	{/if}
 	<Title/>
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
-	<Grid  width={width} height={height}/>
+	<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
 </main>
 
 <style>
