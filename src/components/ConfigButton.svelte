@@ -1,7 +1,19 @@
 <script>
+    import { fly } from 'svelte/transition';
+    import { circOut } from 'svelte/easing';
+    import { onMount } from 'svelte';
+
+    let showing = false;
+
+    onMount(() => {
+        showing = true;
+    });
+
 </script>
 
-<button on:click>Configure Scheduler</button>
+{#if showing}
+    <button on:click transition:fly="{{ y: -20, duration: 400, easing: circOut, delay: 200 }}">Configure Scheduler</button>
+{/if}
 
 <style>
     button {

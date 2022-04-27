@@ -1,14 +1,25 @@
 <script>
-   const title = "Disk Scheduler Visualisation";  
+    import { fly } from 'svelte/transition';
+    import { circOut } from 'svelte/easing';
+    import { onMount } from 'svelte';
+
+    const title = "Disk Scheduler Visualisation";  
+    let showing = false;
+
+    onMount(() => {
+        showing = true;
+    });
+
 </script>
 
-<h1>{title}</h1>
+{#if showing}
+    <h1 transition:fly="{{ y: -20, duration: 400, easing: circOut }}">{title}</h1>
+{/if}
 
 <style>
     h1 {
         color: white;
         padding-top: 10vh;
-        animation: translate-down cubic-bezier(0.075, 0.82, 0.165, 1.0) 1s;
         font-size: 42px;
     }
 </style>

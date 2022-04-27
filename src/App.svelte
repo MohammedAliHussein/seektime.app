@@ -9,6 +9,7 @@
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
     let height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+
 	let scheduling_data = {
 		selected_algorithm: "",
 		head_direction: null,
@@ -41,9 +42,6 @@
 		cylinders: 200,
 		disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
 	});
-
-
-	a.performCalculation();
 
 </script>
 
