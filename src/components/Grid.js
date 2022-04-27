@@ -17,24 +17,18 @@ export class Grid {
     drawCylinderNumbers() { //Code for this adapted from https://svelte.dev/repl/79f4f3e0296a403ea988f74d332a7a4a?version=3.12.1
         let aspect = this.canvas.width / this.canvas.height;
 
-        for(let x = 1; x < this.horizontal_divisions - 1; x++)
+        for(let x = 0; x < this.horizontal_divisions; x++)
         {
-            const v = 2 / (this.horizontal_divisions - 1);
-            const u = x / (this.horizontal_divisions - 1);
+            const v = 1.4 / (this.horizontal_divisions - 1); //translate the row down by 2 units so numbers don't get cut off
+            const u = x / (this.horizontal_divisions + 2); 
 
             let px = u * this.canvas.width;
             let py = (v * aspect) * this.canvas.height;
 
-            if(x % 10 == 0) {
+            if(x % 10 == 0 || x === 0 || x === this.horizontal_divisions - 1) {
                 this.context.fillStyle = "white";
                 this.context.fillText(x, px, py);
-            } else {
-                // this.context.beginPath();
-                // this.context.arc(px, py, 1, 0, Math.PI * 2);
-                // this.context.fillStyle = "white";
-                // this.context.fill();
-            }
-
+            } 
 
         }
     }

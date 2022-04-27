@@ -42,5 +42,6 @@
         margin-top: 40px;
         border-left: 1px solid rgba(255, 255, 255, 0.066);
         border-right: 1px solid rgba(255, 255, 255, 0.066);
+        overflow: visible;
     }
 </style>
