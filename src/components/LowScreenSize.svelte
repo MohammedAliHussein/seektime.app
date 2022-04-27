@@ -13,7 +13,7 @@ import { onMount } from "svelte";
 
 {#if showing}
     <div class="low-screen-size">
-        <h5 class="top-message">Visualisation is not available for lower screen sizes.</h5>
+        <h5 class="top-message">Visualisation for lower screen sizes is not supported.</h5>
         <h5 class="bottom-message">Seek time calculation is still available.</h5>
     </div>
 
@@ -26,12 +26,12 @@ import { onMount } from "svelte";
     }
 
     .top-message {
-        color: rgba(255, 0, 0, 0.7);
+        color: rgb(255, 0, 0);
         margin: 5px;
     }
 
     .bottom-message {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgb(255, 255, 255);
         font-size: 12px;
     }
 

@@ -4,6 +4,7 @@
 	import ConfigurationModal from "./components/ConfigurationModal.svelte";
 	import Grid from "./components/Grid.svelte";
 	import LowScreenSize from "./components/LowScreenSize.svelte";
+	import { DiskScheduler } from "./components/DiskScheduler.js";
 
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
@@ -33,6 +34,16 @@
         width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
         height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
 	}
+
+	let a = new DiskScheduler({
+		selected_algorithm: "FCFS",
+		head_direction: "Left",
+		cylinders: 200,
+		disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
+	});
+
+
+	a.performCalculation();
 
 </script>
 

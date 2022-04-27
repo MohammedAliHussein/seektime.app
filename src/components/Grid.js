@@ -1,4 +1,7 @@
 export class Grid {
+    TOP_GAP = 1.4;
+    ANIMATION_ON = true;
+
     constructor(canvas, context) {
         this.canvas = canvas;
         this.context = context;
@@ -8,6 +11,7 @@ export class Grid {
         this.horizontal_divisions = scheduling_data.disk_requests.length === 0 ? scheduling_data.cylinders : scheduling_data.disk_requests.length;
 
         if(this.context && this.canvas) {
+            this.prepareData(scheduling_data);
             this.drawCylinderNumbers();
             this.drawHeadPoints();
             this.drawHeadMovements();
@@ -19,7 +23,7 @@ export class Grid {
 
         for(let x = 0; x < this.horizontal_divisions; x++)
         {
-            const v = 1.4 / (this.horizontal_divisions - 1); 
+            const v = this.TOP_GAP / (this.horizontal_divisions - 1); 
             const u = x / (this.horizontal_divisions + 2); 
 
             let px = u * this.canvas.width;
@@ -29,7 +33,6 @@ export class Grid {
                 this.context.fillStyle = "white";
                 this.context.fillText(x, px, py);
             } 
-
         }
     }
 
@@ -38,6 +41,10 @@ export class Grid {
     }
 
     drawHeadMovements() {
+
+    }
+
+    prepareData(scheduling_data) {
 
     }
 }
