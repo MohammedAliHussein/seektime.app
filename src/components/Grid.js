@@ -13,7 +13,6 @@ export class Grid {
     }
 
     drawCanvas(scheduling_data) {
-        // this.horizontal_divisions = scheduling_data.disk_requests.length === 0 ? scheduling_data.cylinders : scheduling_data.disk_requests.length;
         this.horizontal_divisions = scheduling_data.cylinders;
 
         console.log(scheduling_data);
@@ -80,7 +79,7 @@ export class Grid {
                 if(this.ANIMATION_ON) {
                     setTimeout(() => {
                         this.animateLine(this.points[i], this.points[i + 1]);
-                    }, i * 600);
+                    }, i * 700);
                 } else {
                     this.context.beginPath();
                     this.context.moveTo(this.points[i].getX(), this.points[i].getY());
@@ -111,9 +110,9 @@ export class Grid {
             if(length >= max_length) clearInterval(this.interval_id);
 
             if(length == 0) {
-                length += this.easeInOutCirc(1 / 3);
+                length += this.easeInOutCirc(1 / 4);
             } else {
-                length += this.easeInOutCirc(length / 3);
+                length += this.easeInOutCirc(length / 4);
             }
 
             if(length >= 1) {
@@ -123,7 +122,7 @@ export class Grid {
             this.context.beginPath();
             this.context.moveTo(startingX, startingY);
             this.context.lineTo(tempX, tempY);
-            this.context.lineWidth = 0.2;
+            this.context.lineWidth = 0.5;
             this.context.stroke();
             
             startingX = tempX; /*So that each line doesnt have old lines drawn over. Just start from where it left off */
