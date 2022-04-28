@@ -72,7 +72,9 @@ export class Grid {
     drawHeadMovements() {
         for(let i = 0; i < this.points.length - 1; i++) {
             this.context.strokeStyle = "rgba(225, 225, 225, 1)";
-            this.animateLine(this.points[i], this.points[i + 1]);
+            setTimeout(() => {
+                this.animateLine(this.points[i], this.points[i + 1]);
+            }, i * 600);
         }
     }
 
