@@ -10,12 +10,20 @@
     let cylinders = "";
     let disk_requests = "";
 
+    function toIntArray(array) {
+        for(let i = 0; i < array.length; i++) {
+            array[i] = parseInt(array[i]);
+        }
+
+        return array;
+    }
+
     function sendConfiguration() {
         dispatch("config", {
             selected_algorithm,
             head_direction,
-            cylinders,
-            disk_requests
+            cylinders: parseInt(cylinders),
+            disk_requests: toIntArray(disk_requests.split(" "))
         });
     }
 
@@ -39,8 +47,8 @@
         <div class="head-direction">
             <h4>Head Direction</h4>
             <div class="head-direction-options">
-                <h5 class:highlighted_button="{head_direction === "left"}" on:click="{() => { head_direction === "left" ? head_direction = "" : head_direction = "left" }}">Left</h5>
-                <h5 class:highlighted_button="{head_direction === "right"}" on:click="{() => { head_direction === "right" ? head_direction = "" : head_direction = "right" }}">Right</h5>
+                <h5 class:highlighted_button="{head_direction === "Left"}" on:click="{() => { head_direction === "Left" ? head_direction = "" : head_direction = "Left" }}">Left</h5>
+                <h5 class:highlighted_button="{head_direction === "Right"}" on:click="{() => { head_direction === "Right" ? head_direction = "" : head_direction = "Right" }}">Right</h5>
             </div>
         </div>
         <input bind:value={cylinders} class="cylinders-input" type="text" placeholder="Number of Cylinders">

@@ -16,11 +16,14 @@ export class Grid {
         // this.horizontal_divisions = scheduling_data.disk_requests.length === 0 ? scheduling_data.cylinders : scheduling_data.disk_requests.length;
         this.horizontal_divisions = scheduling_data.cylinders;
 
+        console.log(scheduling_data);
+
         if(this.context && this.canvas) {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.scheduling_data = scheduling_data;
             this.points = [];
-            this.drawHeadPoints();
             this.drawCylinderNumbers();
+            this.drawHeadPoints();
             this.drawHeadMovements();
         }
     }
