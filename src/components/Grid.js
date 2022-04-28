@@ -5,6 +5,7 @@ export class Grid {
     TOP_GAP = 1.4;
     ANIMATION_ON = true;
     points = [];
+    interval_id = "";
 
     constructor(canvas, context) {
         this.canvas = canvas;
@@ -70,11 +71,21 @@ export class Grid {
     }
 
     drawHeadMovements() {
+        this.context.strokeStyle = "rgba(225, 225, 225, 1)";
         for(let i = 0; i < this.points.length - 1; i++) {
-            this.context.strokeStyle = "rgba(225, 225, 225, 1)";
-            setTimeout(() => {
-                this.animateLine(this.points[i], this.points[i + 1]);
-            }, i * 600);
+            if(this.interval_id !== null) {
+                if(this.ANIMATION_ON) {
+                    setTimeout(() => {
+                        this.animateLine(this.points[i], this.points[i + 1]);
+                    }, i * 600);
+                } else {
+                    this.context.beginPath();
+                    this.context.moveTo(this.points[i].getX(), this.points[i].getY());
+                    this.context.lineTo(this.points[i + 1].getX(), this.points[i + 1].getY());
+                    this.context.lineWidth = 0.2;
+                    this.context.stroke();
+                }
+            }
         }
     }
 
@@ -90,8 +101,11 @@ export class Grid {
         const y_diff = Math.abs(endingX - endingY);
         const max_length = Math.sqrt((x_diff * x_diff) + (y_diff * y_diff));
 
-        let id = setInterval(() => {
-            if(length >= max_length) clearInterval(id);
+        this.interval_id = setInterval(() => {
+            let tempX = startingX + (endingX - startingX) * length;
+            let tempY = startingY + (endingY - startingY) * length;
+
+            if(length >= max_length) clearInterval(this.interval_id);
 
             if(length == 0) {
                 length += this.easeInOutCirc(1 / 3);
@@ -105,11 +119,19 @@ export class Grid {
 
             this.context.beginPath();
             this.context.moveTo(startingX, startingY);
-            this.context.lineTo(startingX + (endingX - startingX) * length, startingY + (endingY - startingY) * length);
-            this.context.lineWidth = 0.1;
+            this.context.lineTo(tempX, tempY);
+            this.context.lineWidth = 0.2;
             this.context.stroke();
             
+            startingX = tempX; /*So that each line doesnt have old lines drawn over. Just start from where it left off */
+            startingY = tempY;
         }, 10);
+    }
+
+    clearCanvas() {
+        this.interval_id = null;
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.interval_id = "";
     }
 
     easeInOutCirc(x) {

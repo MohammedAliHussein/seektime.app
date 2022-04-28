@@ -31,6 +31,7 @@
     });
 
     afterUpdate(() => {
+        grid.clearCanvas();
         grid.drawCanvas(scheduling_data);
     });
 
