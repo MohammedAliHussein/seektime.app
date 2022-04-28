@@ -59,6 +59,10 @@ export class Grid {
                 this.context.fill();
 
                 if(this.scheduling_data.disk_requests[y] === x) {
+                    this.context.beginPath();
+                    this.context.fillStyle = "rgba(255, 255, 255, 1)";
+                    this.context.arc(px, py, 2, 0, Math.PI * 2);
+                    this.context.fill();
                     this.points.push(new Point(px, py));
                 }
             } 
@@ -67,23 +71,60 @@ export class Grid {
 
     drawHeadMovements() {
         for(let i = 0; i < this.points.length - 1; i++) {
-            // this.animateLine(this.points[i], this.points[i + 1]);
-            this.context.beginPath();
-            this.context.moveTo(this.points[i].getX(), this.points[i].getY());
-            this.context.lineTo(this.points[i + 1].getX(), this.points[i + 1].getY());
-            this.context.lineWidth = 1;
             this.context.strokeStyle = "rgba(225, 225, 225, 1)";
-            this.context.stroke();
+            this.animateLine(this.points[i], this.points[i + 1]);
         }
     }
 
     animateLine(starting_point, ending_point) {
+        let length = 0;
 
+        let startingX = starting_point.getX();
+        let startingY = starting_point.getY();
+        let endingX = ending_point.getX();
+        let endingY = ending_point.getY();
+
+        const x_diff = Math.abs(startingX - endingX);
+        const y_diff = Math.abs(endingX - endingY);
+        const max_length = Math.sqrt((x_diff * x_diff) + (y_diff * y_diff));
+
+        let id = setInterval(() => {
+            if(length >= max_length) clearInterval(id);
+
+            if(length == 0) {
+                length += this.easeInOutCirc(1 / 3);
+            } else {
+                length += this.easeInOutCirc(length / 3);
+            }
+
+            if(length >= 1) {
+                length = 1;
+            }
+
+            this.context.beginPath();
+            this.context.moveTo(startingX, startingY);
+            this.context.lineTo(startingX + (endingX - startingX) * length, startingY + (endingY - startingY) * length);
+            this.context.lineWidth = 0.1;
+            this.context.stroke();
+            
+        }, 10);
     }
 
     easeInOutCirc(x) {
-        return x < 0.5
-          ? (1 - sqrt(1 - pow(2 * x, 2))) / 2
-          : (sqrt(1 - pow(-2 * x + 2, 2)) + 1) / 2;
+        let val = x;
+
+        if(x < 0.5) {
+            val = (1 - Math.sqrt(1 - Math.pow(2 * x, 2))) / 2;
+        } 
+
+        if(x >= 0.5 && x < 1) {
+            val = (Math.sqrt(1 - Math.pow(-2 * x + 2, 2)) + 1) / 2;
+        }
+
+        if(val >= 1) {
+            return 1;
+        }
+
+        return val;
     }
 }
