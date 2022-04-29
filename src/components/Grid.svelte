@@ -20,8 +20,10 @@
     let requires_redraw = false;
 
     function handleResize() {
-        width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
-        height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+        width = ((window.innerWidth / 2)) * 1.25;
+        height = ((window.innerHeight / 2)) * 1.25;
+
+        console.log(`width: ${width}\n window-inner: ${window.innerWidth}`);
     }
 
     onMount(() => {

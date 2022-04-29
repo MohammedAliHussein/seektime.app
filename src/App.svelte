@@ -7,8 +7,8 @@
 	import { DiskScheduler } from "./components/DiskScheduler.js";
 
 	let modalIsOpen = false;
-	let width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
-    let height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+	let width = ((window.innerWidth / 2)) * 1.25;
+    let height = ((window.innerHeight / 2)) * 1.25;
 
 	// let scheduling_data = {
 	// 	selected_algorithm: "",
@@ -39,8 +39,8 @@
 	}
 
 	function handleResize() {
-        width = ((window.innerWidth / 2) * window.devicePixelRatio) * 1.25;
-        height = ((window.innerHeight / 2) * window.devicePixelRatio) * 1.25;
+        width = ((window.innerWidth / 2)) * 1.25;
+        height = ((window.innerHeight / 2)) * 1.25;
 	}
 
 	let a = new DiskScheduler({

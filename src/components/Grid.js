@@ -50,14 +50,14 @@ export class Grid {
     drawHeadPoints() {
         let aspect = this.canvas.width / this.canvas.height;
 
-        for(let y = 0; y < this.scheduling_data.disk_requests.length; y++) {
+        for(let y = 0; y < this.vertical_divisions; y++) {
             for(let x = 0; x < this.horizontal_divisions; x++) {
 
-                const v = y / (this.vertical_divisions + this.TOP_GAP); 
+                const v = y / (this.vertical_divisions + 1); 
                 const u = x / (this.horizontal_divisions - 1); 
                  
                 let px = u * this.canvas.width;
-                let py = ((v) * this.canvas.height) + 20;
+                let py = ((v) * this.canvas.height + 25); //this +20 is why things keep getting cut off
 
                 this.drawHorizontalRow(px, py);
 
