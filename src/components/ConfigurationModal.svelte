@@ -10,6 +10,13 @@
     let cylinders = "";
     let disk_requests = "";
 
+    function cleanRequests(array) {
+        let cleaned = toIntArray(array);
+        cleaned = removeNonInt(cleaned);
+        console.log(cleaned);
+        return cleaned;
+    }
+
     function toIntArray(array) {
         for(let i = 0; i < array.length; i++) {
             array[i] = parseInt(array[i]);
@@ -18,12 +25,18 @@
         return array;
     }
 
+    function removeNonInt(array) {
+        return array.filter((current_int) => {
+            if(typeof(current_int) === 'number') return current_int;
+        });
+    }
+
     function sendConfiguration() {
         dispatch("config", {
             selected_algorithm,
             head_direction,
             cylinders: parseInt(cylinders),
-            disk_requests: toIntArray(disk_requests.split(" "))
+            disk_requests: cleanRequests((disk_requests.trim()).split(" "))
         });
     }
 

@@ -1,4 +1,3 @@
-import { DiskScheduler } from "./DiskScheduler.js";
 import { Point } from "./Point.js";
 
 export class Grid {
@@ -14,17 +13,20 @@ export class Grid {
 
     drawCanvas(scheduling_data) {
         this.horizontal_divisions = scheduling_data.cylinders;
-
-        console.log(scheduling_data);
-
+        this.vertical_divisions = scheduling_data.disk_requests.length;    
+    
         if(this.context && this.canvas) {
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.scheduling_data = scheduling_data;
-            this.points = [];
+            this.reset();
             this.drawCylinderNumbers();
             this.drawHeadPoints();
             this.drawHeadMovements();
         }
+    }
+
+    reset() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.points = [];
     }
 
     drawCylinderNumbers() { //Code for this adapted from https://svelte.dev/repl/79f4f3e0296a403ea988f74d332a7a4a?version=3.12.1
@@ -40,7 +42,7 @@ export class Grid {
 
             if(x % 10 == 0 || x === 0 || x === this.horizontal_divisions - 1) {
                 this.context.fillStyle = "white";
-                this.context.fillText(x, px, py);
+                this.context.fillText(x, px, py + 8);
             } 
         }
     }
@@ -50,26 +52,37 @@ export class Grid {
 
         for(let y = 0; y < this.scheduling_data.disk_requests.length; y++) {
             for(let x = 0; x < this.horizontal_divisions; x++) {
-                const v = (y * 9) / (this.horizontal_divisions - 1); 
+
+                const v = y / (this.vertical_divisions + this.TOP_GAP); 
                 const u = x / (this.horizontal_divisions - 1); 
-
+                 
                 let px = u * this.canvas.width;
-                let py = ((v * aspect) * this.canvas.height) + 20;
+                let py = ((v) * this.canvas.height) + 20;
 
-                this.context.beginPath();
-                this.context.fillStyle = "rgba(255, 255, 255, 0.05)";
-                this.context.arc(px, py + 1, 1, 0, Math.PI * 2);
-                this.context.fill();
+                this.drawHorizontalRow(px, py);
 
                 if(this.scheduling_data.disk_requests[y] === x) {
-                    this.context.beginPath();
-                    this.context.fillStyle = "rgba(255, 255, 255, 1)";
-                    this.context.arc(px, py, 2, 0, Math.PI * 2);
-                    this.context.fill();
-                    this.points.push(new Point(px, py));
+                    this.drawHeadMovementPoint(px, py, y);
                 }
             } 
         }
+    }
+
+    drawHorizontalRow(px, py) {
+        this.context.beginPath();
+        this.context.fillStyle = "rgba(255, 255, 255, 0.05)";
+        this.context.arc(px, py + 1, 1, 0, Math.PI * 2);
+        this.context.fill();
+    }
+
+    drawHeadMovementPoint(px, py, y) {
+        this.context.beginPath();
+        this.context.fillStyle = "rgba(255, 255, 255, 1)";
+        this.context.arc(px, py, 2, 0, Math.PI * 2);
+        this.context.fill();
+        this.context.fillStyle = "rgba(255, 255, 255, 1)";
+        this.context.fillText(this.scheduling_data.disk_requests[y], px, py + 15);
+        this.points.push(new Point(px, py));
     }
 
     drawHeadMovements() {
@@ -77,18 +90,26 @@ export class Grid {
         for(let i = 0; i < this.points.length - 1; i++) {
             if(this.interval_id !== null) {
                 if(this.ANIMATION_ON) {
-                    setTimeout(() => {
-                        this.animateLine(this.points[i], this.points[i + 1]);
-                    }, i * 700);
+                    this.animtedLineDraw(i);
                 } else {
-                    this.context.beginPath();
-                    this.context.moveTo(this.points[i].getX(), this.points[i].getY());
-                    this.context.lineTo(this.points[i + 1].getX(), this.points[i + 1].getY());
-                    this.context.lineWidth = 0.2;
-                    this.context.stroke();
+                    this.nonAnimatedLineDraw(i);
                 }
             }
         }
+    }
+
+    animtedLineDraw(i) {
+        setTimeout(() => {
+            this.animateLine(this.points[i], this.points[i + 1]);
+        }, i * 700);
+    }
+
+    nonAnimatedLineDraw(i) {
+        this.context.beginPath();
+        this.context.moveTo(this.points[i].getX(), this.points[i].getY());
+        this.context.lineTo(this.points[i + 1].getX(), this.points[i + 1].getY());
+        this.context.lineWidth = 0.2;
+        this.context.stroke();
     }
 
     animateLine(starting_point, ending_point) {
