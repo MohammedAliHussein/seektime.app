@@ -29,6 +29,7 @@
 
 	function handleConfig(event) {
 		scheduling_data = event.detail;
+		console.log(scheduling_data);
 		modalIsOpen = false;
 		disk_scheduler = new DiskScheduler(scheduling_data);
 	}
@@ -71,7 +72,7 @@
 		color: white;
 	}
 
-	.low-screen-size-seek {
+	/* .low-screen-size-seek {
 		margin-top: 20%;
-	}
+	} */
 </style>

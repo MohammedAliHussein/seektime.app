@@ -13,7 +13,7 @@
     function cleanRequests(array) {
         let cleaned = toIntArray(array);
         cleaned = removeNonInt(cleaned);
-        console.log(cleaned);
+        cleaned = addZero(cleaned);
         return cleaned;
     }
 
@@ -27,8 +27,19 @@
 
     function removeNonInt(array) {
         return array.filter((current_int) => {
+            if(current_int * 1 === 0) return 'ZERO';
             if(typeof(current_int) === 'number') return current_int;
         });
+    }
+
+    function addZero(array) {
+        for(let i = 0; i < array.length; i++) {
+            if(array[i] === 'ZERO') {
+                array[i] = 0;
+            }
+        }
+        
+        return array;
     }
 
     function sendConfiguration() {
