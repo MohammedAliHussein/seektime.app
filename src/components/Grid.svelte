@@ -43,7 +43,7 @@
 </script>
 
 <canvas class="canvas2" in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width + 25} height={height / 25}/>
-<canvas class="canvas" in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width} height={height + 15}/>
+<canvas class="canvas" in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width + 25} height={height + 15}/>
 
 <svelte:window on:resize={handleResize} />
 
