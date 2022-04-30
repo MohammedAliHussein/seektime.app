@@ -37,11 +37,13 @@ export class Grid {
 
         for(let x = 0; x < this.horizontal_divisions; x++)
         {
-            const v = this.TOP_GAP / (this.horizontal_divisions - 1); 
+            const v = 0 / (this.horizontal_divisions); 
             const u = x / (this.horizontal_divisions + 2); 
 
             let px = u * this.canvas2.width;
             let py = (v * aspect) * this.canvas2.height;
+
+            console.log(`v: ${v}\nu: ${u}\npx: ${px}\npy: ${py}`);
 
             if(x % 10 == 0 || x === 0 || x === this.horizontal_divisions - 1) {
                 this.context2.fillStyle = "white";
