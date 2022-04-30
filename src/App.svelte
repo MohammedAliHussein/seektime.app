@@ -66,9 +66,11 @@
 		flex-direction: column;
 		align-items: center;
 	}
+
 	h2 {
 		color: white;
 	}
+
 	.low-screen-size-seek {
 		margin-top: 20%;
 	}
