@@ -9,7 +9,6 @@
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2)) * 1.25;
     let height = ((window.innerHeight / 2)) * 1.25;
-	let seek_time = 0;
 
 	let scheduling_data = {
 		selected_algorithm: "FCFS",
@@ -39,15 +38,6 @@
         height = ((window.innerHeight / 2)) * 1.25;
 	}
 
-	// let a = new DiskScheduler({
-	// 	selected_algorithm: "FCFS",
-	// 	head_direction: "Left",
-	// 	cylinders: 200,
-	// 	disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
-	// });
-
-	// console.log(a.performCalculation());
-
 </script>
 
 <main>
@@ -61,6 +51,7 @@
 		<h2>Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
 	{:else}
 		<LowScreenSize />	
+		<h2 class="low-screen-size-seek">Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
 	{/if}
 </main>
 
@@ -77,5 +68,8 @@
 	}
 	h2 {
 		color: white;
+	}
+	.low-screen-size-seek {
+		margin-top: 20%;
 	}
 </style>

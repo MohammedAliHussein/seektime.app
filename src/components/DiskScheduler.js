@@ -12,12 +12,7 @@ export class DiskScheduler {
     }
 
     performCalculation() {
-        let canvas_data = {
-            // head_movements: [ {
-            //     head_position: //Head movements will be sorted in the chronological order that they should happen
-            //     seek_time: //After each head movement of animation, the seek time will change visually
-            // } ],
-        };
+        let canvas_data = { };
 
         let algorithm = this.scheduling_data.selected_algorithm;
         switch(algorithm) {
