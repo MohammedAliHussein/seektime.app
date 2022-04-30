@@ -46,13 +46,13 @@
 	{/if}
 	<Title/>
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
-	{#if width >= 825}
+	<!-- {#if width >= 825} -->
 		<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
 		<h2>Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
-	{:else}
+	<!-- {:else}
 		<LowScreenSize />	
 		<h2 class="low-screen-size-seek">Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
-	{/if}
+	{/if} -->
 </main>
 
 <svelte:window on:resize={handleResize} />
