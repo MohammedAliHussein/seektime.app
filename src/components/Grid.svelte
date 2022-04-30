@@ -15,9 +15,10 @@
 	};
 
     let canvas;
+    let canvas2;
     let context;
-    let grid = new Grid(canvas, context); 
-    let requires_redraw = false;
+    let context2;
+    let grid = new Grid(canvas, context, canvas2, context2); 
 
     function handleResize() {
         width = ((window.innerWidth / 2)) * 1.25;
@@ -27,9 +28,11 @@
     }
 
     onMount(() => {
-        canvas = document.querySelector("canvas");
+        canvas = document.querySelector(".canvas");
         context = canvas.getContext("2d");
-        grid = new Grid(canvas, context);
+        canvas2 = document.querySelector(".canvas2");
+        context2 = canvas2.getContext("2d");
+        grid = new Grid(canvas, context, canvas2, context2);
     });
 
     afterUpdate(() => {
@@ -39,12 +42,16 @@
 
 </script>
 
-<canvas in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width} height={height}/>
+<canvas class="canvas2" in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width} height={height / 25}/>
+<canvas class="canvas" in:fade={{easing: circInOut, duration: 200}} out:fade={{easing: circInOut, duration: 200}} width={width} height={height + 15}/>
 
 <svelte:window on:resize={handleResize} />
 
 <style>
     canvas {
+        background: none;
+    }
+    .canvas2 {
         margin-top: 40px;
         background: none;
     }

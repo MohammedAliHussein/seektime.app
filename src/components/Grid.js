@@ -6,16 +6,18 @@ export class Grid {
     points = [];
     interval_id = "";
 
-    constructor(canvas, context) {
+    constructor(canvas, context, canvas2, context2) {
         this.canvas = canvas;
         this.context = context;
+        this.canvas2 = canvas2;
+        this.context2 = context2;
     }
 
     drawCanvas(scheduling_data) {
         this.horizontal_divisions = scheduling_data.cylinders;
         this.vertical_divisions = scheduling_data.disk_requests.length;    
     
-        if(this.context && this.canvas) {
+        if(this.context && this.canvas && this.canvas2 && this.context2) {
             this.scheduling_data = scheduling_data;
             this.reset();
             this.drawCylinderNumbers();
@@ -26,38 +28,37 @@ export class Grid {
 
     reset() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
         this.points = [];
     }
 
     drawCylinderNumbers() { //Code for this adapted from https://svelte.dev/repl/79f4f3e0296a403ea988f74d332a7a4a?version=3.12.1
-        let aspect = this.canvas.width / this.canvas.height;
+        let aspect = this.canvas2.width / this.canvas2.height;
 
         for(let x = 0; x < this.horizontal_divisions; x++)
         {
             const v = this.TOP_GAP / (this.horizontal_divisions - 1); 
             const u = x / (this.horizontal_divisions + 2); 
 
-            let px = u * this.canvas.width;
-            let py = (v * aspect) * this.canvas.height;
+            let px = u * this.canvas2.width;
+            let py = (v * aspect) * this.canvas2.height;
 
             if(x % 10 == 0 || x === 0 || x === this.horizontal_divisions - 1) {
-                this.context.fillStyle = "white";
-                this.context.fillText(x, px, py + 8);
+                this.context2.fillStyle = "white";
+                this.context2.fillText(x, px, py + 8);
             } 
         }
     }
 
     drawHeadPoints() {
-        let aspect = this.canvas.width / this.canvas.height;
-
         for(let y = 0; y < this.vertical_divisions; y++) {
             for(let x = 0; x < this.horizontal_divisions; x++) {
 
-                const v = y / (this.vertical_divisions + 1); 
+                const v = y / (this.vertical_divisions); 
                 const u = x / (this.horizontal_divisions - 1); 
                  
                 let px = u * this.canvas.width;
-                let py = ((v) * this.canvas.height + 25); //this +20 is why things keep getting cut off
+                let py = (v * (this.canvas.height - 15)) + 5; //this +20 is why things keep getting cut off
 
                 this.drawHorizontalRow(px, py);
 

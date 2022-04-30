@@ -9,13 +9,7 @@
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2)) * 1.25;
     let height = ((window.innerHeight / 2)) * 1.25;
-
-	// let scheduling_data = {
-	// 	selected_algorithm: "",
-	// 	head_direction: null,
-	// 	cylinders: 200,
-	// 	disk_requests: []
-	// };
+	let seek_time = 0;
 
 	let scheduling_data = {
 		selected_algorithm: "FCFS",
@@ -23,6 +17,8 @@
 		cylinders: 200,
 		disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
 	}
+
+	let disk_scheduler = new DiskScheduler(scheduling_data);
 
 	function openModal() {
 		modalIsOpen = true;		
@@ -34,8 +30,8 @@
 
 	function handleConfig(event) {
 		scheduling_data = event.detail;
-		console.log(scheduling_data);
 		modalIsOpen = false;
+		disk_scheduler = new DiskScheduler(scheduling_data);
 	}
 
 	function handleResize() {
@@ -43,14 +39,14 @@
         height = ((window.innerHeight / 2)) * 1.25;
 	}
 
-	let a = new DiskScheduler({
-		selected_algorithm: "FCFS",
-		head_direction: "Left",
-		cylinders: 200,
-		disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
-	});
+	// let a = new DiskScheduler({
+	// 	selected_algorithm: "FCFS",
+	// 	head_direction: "Left",
+	// 	cylinders: 200,
+	// 	disk_requests: [53, 98, 183, 37, 122, 14, 124, 65, 67]
+	// });
 
-	console.log(a.performCalculation());
+	// console.log(a.performCalculation());
 
 </script>
 
@@ -62,6 +58,7 @@
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
 	{#if width >= 825}
 		<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
+		<h2>Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
 	{:else}
 		<LowScreenSize />	
 	{/if}
@@ -77,5 +74,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+	h2 {
+		color: white;
 	}
 </style>
