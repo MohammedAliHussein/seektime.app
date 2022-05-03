@@ -1,6 +1,6 @@
 <script>
     import { afterUpdate, onMount } from "svelte";
-    import { Grid } from "./Grid.js";
+    import { Grid } from "../models/Grid.js";
     import { fade } from 'svelte/transition';
     import { circInOut } from 'svelte/easing';
 

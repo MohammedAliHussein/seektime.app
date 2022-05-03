@@ -4,7 +4,7 @@
 	import ConfigurationModal from "./components/ConfigurationModal.svelte";
 	import Grid from "./components/Grid.svelte";
 	import LowScreenSize from "./components/LowScreenSize.svelte";
-	import { DiskScheduler } from "./components/DiskScheduler.js";
+	import { DiskScheduler } from "./models/DiskScheduler.js";
 
 	let modalIsOpen = false;
 	let width = ((window.innerWidth / 2)) * 1.25;

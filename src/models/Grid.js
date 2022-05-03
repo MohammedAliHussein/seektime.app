@@ -57,7 +57,7 @@ export class Grid {
                 const v = y / (this.vertical_divisions); 
                 const u = x / (this.horizontal_divisions - 1); 
                  
-                let px = u * this.canvas.width;
+                let px = (u * (this.canvas.width - 25)) + 10;
                 let py = (v * (this.canvas.height - 15)) + 5; //this +20 is why things keep getting cut off
 
                 this.drawHorizontalRow(px, py);
