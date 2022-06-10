@@ -23,8 +23,6 @@
     function handleResize() {
         width = ((window.innerWidth / 2)) * 1.25;
         height = ((window.innerHeight / 2)) * 1.25;
-
-        console.log(`width: ${width}\n window-inner: ${window.innerWidth}`);
     }
 
     onMount(() => {

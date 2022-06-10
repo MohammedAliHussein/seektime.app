@@ -43,6 +43,7 @@
     }
 
     function sendConfiguration() {
+        // console.log(`${selected_algorithm}`);
         dispatch("config", {
             selected_algorithm,
             head_direction,

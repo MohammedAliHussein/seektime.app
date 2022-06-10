@@ -18,6 +18,7 @@
 	}
 
 	let disk_scheduler = new DiskScheduler(scheduling_data);
+	// let seek_time = disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time;
 
 	function openModal() {
 		modalIsOpen = true;		
@@ -29,9 +30,10 @@
 
 	function handleConfig(event) {
 		scheduling_data = event.detail;
-		console.log(scheduling_data);
 		modalIsOpen = false;
 		disk_scheduler = new DiskScheduler(scheduling_data);
+		scheduling_data.disk_requests = disk_scheduler.performCalculation();
+		console.log(scheduling_data)
 	}
 
 	function handleResize() {
@@ -49,7 +51,7 @@
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
 	<!-- {#if width >= 825} -->
 		<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
-		<h2>Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
+		<!-- <h2>Seek Time: {}</h2> -->
 	<!-- {:else}
 		<LowScreenSize />	
 		<h2 class="low-screen-size-seek">Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>
