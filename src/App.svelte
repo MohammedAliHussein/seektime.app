@@ -18,7 +18,7 @@
 	}
 
 	let disk_scheduler = new DiskScheduler(scheduling_data);
-	// let seek_time = disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time;
+	$: seek_time = calculateSeekTime(scheduling_data.disk_requests);
 
 	function openModal() {
 		modalIsOpen = true;		
@@ -33,12 +33,26 @@
 		modalIsOpen = false;
 		disk_scheduler = new DiskScheduler(scheduling_data);
 		scheduling_data.disk_requests = disk_scheduler.performCalculation();
-		console.log(scheduling_data)
 	}
 
 	function handleResize() {
         width = ((window.innerWidth / 2)) * 1.25;
         height = ((window.innerHeight / 2)) * 1.25;
+	}
+
+	function calculateSeekTime(disk_requests) {
+		let seek_time = 0;
+
+		console.log(disk_requests);
+
+		for(let i = 0; i < disk_requests.length - 1; i++) {
+			console.log(`${disk_requests[i]} - ${disk_requests[i+1]}`);
+			seek_time += Math.abs(disk_requests[i] - disk_requests[i + 1]);
+		}
+
+		console.log(seek_time);
+
+		return seek_time;
 	}
 
 </script>
@@ -51,7 +65,7 @@
 	<ConfigButton on:click={modalIsOpen ? closeModal : openModal}/>
 	<!-- {#if width >= 825} -->
 		<Grid bind:scheduling_data={scheduling_data} width={width} height={height}/>
-		<!-- <h2>Seek Time: {}</h2> -->
+		<h2>Seek Time: {seek_time}</h2>
 	<!-- {:else}
 		<LowScreenSize />	
 		<h2 class="low-screen-size-seek">Seek Time: {disk_scheduler.performCalculation()[scheduling_data.disk_requests.length - 1].seek_time}</h2>

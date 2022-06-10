@@ -1,3 +1,7 @@
+/**
+ * All algorithms found on https://www.geeksforgeeks.org/
+ */
+
 export class DiskScheduler {
 	constructor(scheduling_data) {
 		this.scheduling_data = scheduling_data;
@@ -140,6 +144,8 @@ export class DiskScheduler {
 			right = [];
 		let seek_sequence = [];
 
+		seek_sequence.push(head);
+
 		// appending end values
 		// which has to be visited
 		// before reversing the direction
@@ -213,6 +219,8 @@ export class DiskScheduler {
 			right = [];
 		let seek_sequence = [];
 
+		seek_sequence.push(head);
+
 		// appending end values
 		// which has to be visited
 		// before reversing the direction
@@ -280,6 +288,9 @@ export class DiskScheduler {
 			head = cur_track;
 		}
 
+		console.log(seek_sequence);
+		console.log("asdasd");
+
 		return seek_sequence;
 	}
 
@@ -290,6 +301,8 @@ export class DiskScheduler {
 		let left = [];
 		let right = [];
 		let seek_sequence = [];
+
+		seek_sequence.push(head);
 
 		// Appending values which are
 		// currently at left and right
@@ -367,6 +380,8 @@ export class DiskScheduler {
 		let left = [];
 		let right = [];
 		let seek_sequence = [];
+
+		seek_sequence.push(head);
 
 		// Tracks on the left of the
 		// head will be serviced when
