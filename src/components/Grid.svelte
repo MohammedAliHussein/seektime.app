@@ -4,6 +4,8 @@
     import { fade } from 'svelte/transition';
     import { circInOut } from 'svelte/easing';
 
+    let allowUpdate = true;
+
     export let width;
     export let height; 
 

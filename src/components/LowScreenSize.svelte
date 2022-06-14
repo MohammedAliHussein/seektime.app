@@ -13,7 +13,7 @@ import { onMount } from "svelte";
 
 {#if showing}
     <div class="low-screen-size">
-        <h5 class="top-message">Visualisation for lower screen sizes is not supported.</h5>
+        <h5 class="top-message">Visualisation for lower screen widths is not supported.</h5>
         <h5 class="bottom-message">Seek time calculation is still available.</h5>
     </div>
 {/if}

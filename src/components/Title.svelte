@@ -3,7 +3,7 @@
     import { circOut } from 'svelte/easing';
     import { onMount } from 'svelte';
 
-    const title = "Disk Scheduler Visualisation";  
+    const title = "Disk Scheduler Seek Visualisation";  
     let showing = false;
 
     onMount(() => {

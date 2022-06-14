@@ -134,6 +134,8 @@ export class DiskScheduler {
 			skeek[n] = head;
 		}
 
+		skeek.shift();
+
 		return skeek;
 	}
 
@@ -240,6 +242,7 @@ export class DiskScheduler {
 		left.sort(function (a, b) {
 			return a - b;
 		});
+
 		right.sort(function (a, b) {
 			return a - b;
 		});
