@@ -1,10 +1,9 @@
 <p align="center">
-<!--     <h1 align="center" style="font-weight: 600;">seektime.app</h1> -->
-    seektime.app
+    <h2 align="center" style="font-weight: 600;">seektime.app</h2>
 </p>
 
 <p align="center">
-    <img src="./public/favicon.svg" style="height: 256px; width: 256px;"></img>
+    <img src="./public/favicon.svg" style="height: 48px; width: 48px;"></img>
 </p>
 
 ![alt text](./assets/readme_gif_2.gif)
