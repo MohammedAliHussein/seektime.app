@@ -49,12 +49,6 @@
     }
 
     function sendConfiguration() {
-        console.log( {
-            selected_algorithm,
-            head_direction,
-            cylinders: parseInt(cylinders),
-            disk_requests: cleanRequests((disk_requests.trim()).split(" "))
-        })
         dispatch("config", {
             selected_algorithm,
             head_direction,
@@ -92,8 +86,14 @@
                     <h5 class:highlighted_button="{head_direction === "Right"}" on:click="{() => { head_direction === "Right" ? head_direction = "" : head_direction = "Right" }}">Right</h5>
                 </div>
             </div>
-            <input bind:value={cylinders} class="cylinders-input" type="text" placeholder={pastNumberOfCylinders} maxlength="4">
-            <input bind:value={disk_requests} class="requests-input" type="text" placeholder={pastDiskReqests}>
+            <div class="cylinders">
+                <h4>Cylinders</h4>
+                <input bind:value={cylinders} class="cylinders-input" type="text" placeholder={pastNumberOfCylinders} maxlength="4">
+            </div>
+            <div class="disk-requests">
+                <h4>Disk Requests</h4>
+                <input bind:value={disk_requests} class="requests-input" type="text" placeholder={pastDiskReqests}>
+            </div>
             <button on:click="{sendConfiguration}">Confirm Config</button>
         </div>
     </div>
@@ -112,9 +112,17 @@
         animation: fadeIn 0.2s ease-in-out;
     }
 
+    .cylinders, .disk-requests {
+        background: none;
+    }
+
+    .cylinders h4, .disk-requests h4 {
+        margin-bottom: 10px;
+    }
+
     .config-modal {
         width: 300px;
-        height: 400px;
+        height: fit-content;
         border: 1px solid rgba(255, 255, 255, 0.066);
         position: relative;
         display: flex;
@@ -123,7 +131,9 @@
         flex-direction: column;
         background-color: rgb(8, 8, 8);
         animation: fadeIn 0.2s ease-in-out;
-        margin: 20px;
+        /* margin: 20px; */
+        padding-top: 12px;
+        padding-bottom: 25px;
     }
 
     svg {
@@ -178,7 +188,7 @@
     }
 
     .head-direction {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .head-direction-options {
@@ -207,7 +217,7 @@
     }
 
     .cylinders-input {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     input {
